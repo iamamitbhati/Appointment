@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.iamamitbhati.codingtask.R
-import com.iamamitbhati.codingtask.data.domain.loadImage
+import com.iamamitbhati.codingtask.domain.loadImage
 import com.iamamitbhati.codingtask.data.model.Pet
 import com.iamamitbhati.codingtask.databinding.ItemPetBinding
 import java.util.concurrent.Executors

@@ -10,8 +10,7 @@ import androidx.fragment.app.viewModels
 import com.google.android.material.snackbar.Snackbar
 import com.iamamitbhati.codingtask.R
 import com.iamamitbhati.codingtask.viewmodel.ViewModelFactory
-import com.iamamitbhati.codingtask.data.domain.alertView
-import com.iamamitbhati.codingtask.data.domain.checkTime
+import com.iamamitbhati.codingtask.domain.alertView
 import com.iamamitbhati.codingtask.data.model.Pet
 import com.iamamitbhati.codingtask.databinding.FragmentHomeBinding
 import com.iamamitbhati.codingtask.extension.setVisibility
@@ -72,7 +71,7 @@ class FragmentAppointment : Fragment() {
     }
 
     private fun showAlert() {
-        val isInHrs = workingHrs?.let { checkTime(it) } ?: false
+        val isInHrs = workingHrs?.let { mainViewModel.checkTime(it, Calendar.getInstance()) } ?: false
         val alertMsg = if (isInHrs)
             getString(R.string.in_hrs)
         else

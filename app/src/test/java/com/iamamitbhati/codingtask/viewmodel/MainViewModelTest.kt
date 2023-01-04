@@ -18,6 +18,7 @@ import org.mockito.Mockito
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.reset
 import org.mockito.MockitoAnnotations
+import java.util.*
 
 @RunWith(JUnit4::class)
 class MainViewModelTest {
@@ -129,6 +130,63 @@ class MainViewModelTest {
 
         assertEquals(API_ERROR, observerList.errorMessage)
         assertEquals(API_ERROR, observerConfig.errorMessage)
+    }
+
+    @Test
+    fun checkTimeWithInWorkingHoursTest() {
+        val mockCalendar = Calendar.getInstance().apply {
+            set(Calendar.HOUR_OF_DAY, 11)
+            set(Calendar.DAY_OF_WEEK, 3) // Tuesday
+        }
+        val mockWorkingHr = "M-F 9:00 - 18:00"
+        val actualValue = mainViewModel.checkTime(mockWorkingHr, mockCalendar)
+        assertTrue(actualValue)
+    }
+
+    @Test
+    fun checkTimeOutSideWorkingHourTest() {
+        val mockCalendar = Calendar.getInstance().apply {
+            set(Calendar.HOUR_OF_DAY, 8) // for 08 AM
+            set(Calendar.DAY_OF_WEEK, 3)
+        }
+        val mockWorkingHr = "M-F 9:00 - 18:00"
+        val actualValue = mainViewModel.checkTime(mockWorkingHr, mockCalendar)
+        assertFalse(actualValue)
+    }
+
+    @Test
+    fun checkTimeOutSideWorkingDayOfWeekTest() {
+        val mockCalendar = Calendar.getInstance().apply {
+            set(Calendar.HOUR_OF_DAY, 11)
+            set(Calendar.DAY_OF_WEEK, 1) //Sunday
+        }
+        val mockWorkingHr = "M-F 9:00 - 18:00"
+        val actualValue = mainViewModel.checkTime(mockWorkingHr, mockCalendar)
+        assertFalse(actualValue)
+    }
+
+    @Test
+    fun checkTimeInvalidTimeFormatToHandelException() {
+        val mockCalendar = Calendar.getInstance().apply {
+            set(Calendar.HOUR_OF_DAY, 11)
+            set(Calendar.DAY_OF_WEEK, 3)
+        }
+        val mockWorkingHr = "MF9001800"
+        val actualValue = mainViewModel.checkTime(mockWorkingHr, mockCalendar)
+        assertFalse(actualValue)
+    }
+
+    @Test
+    fun getDayOfWeekTest() {
+        val mockDaySunday = "S"
+        val mockDayMonday = "M"
+        val mockDayThursday = "TH"
+        val resultForSunday = mainViewModel.getDayOfWeek(mockDaySunday)
+        val resultForMonday = mainViewModel.getDayOfWeek(mockDayMonday)
+        val resultForThursday = mainViewModel.getDayOfWeek(mockDayThursday)
+        assertEquals(1, resultForSunday)
+        assertEquals(2, resultForMonday)
+        assertEquals(5, resultForThursday)
     }
 }
 

@@ -1,7 +1,7 @@
 package com.iamamitbhati.codingtask.repository
 
-import com.iamamitbhati.codingtask.data.domain.getConfigTranslation
-import com.iamamitbhati.codingtask.data.domain.getPetTranslation
+import com.iamamitbhati.codingtask.domain.getConfigTranslation
+import com.iamamitbhati.codingtask.domain.getPetTranslation
 import com.iamamitbhati.codingtask.module.NetworkModule
 import com.iamamitbhati.codingtask.data.model.Pet
 import com.iamamitbhati.codingtask.data.model.Setting
@@ -21,7 +21,7 @@ class AppointmentRepositoryImpl : AppointmentRepository {
         val client = networkModule.provideOkHttpClient()
         networkModule.getWebservice(client, request, object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                listener(Resource.Failed(e.message.toString()))
+                listener(Resource.Failed())
             }
 
             override fun onResponse(call: Call, response: Response) {
@@ -40,7 +40,7 @@ class AppointmentRepositoryImpl : AppointmentRepository {
 
         networkModule.getWebservice(client, request, object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                listener(Resource.Failed(e.message.toString()))
+                listener(Resource.Failed())
             }
 
             override fun onResponse(call: Call, response: Response) {

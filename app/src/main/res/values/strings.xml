@@ -2,10 +2,7 @@
     <string name="app_name">Appointment</string>
     <string name="retry">Retry</string>
     <string name="post_error">An error occurred while loading the data</string>
-    <string name="favorite">Favorite</string>
     <string name="Home">Home</string>
-    <string name="fav_empty_list">Please add data to fav list.</string>
-    <string name="amount_value">\u0024%1$f</string>
     <string name="chat">Chat</string>
     <string name="call">Call</string>
     <string name="ofc_hrs">Office Hours: %1$s</string>

@@ -1,4 +1,4 @@
-package com.iamamitbhati.codingtask.data.domain
+package com.iamamitbhati.codingtask.domain
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -89,55 +89,6 @@ private fun mStringToURL(string: String?): URL? {
         e.printStackTrace()
     }
     return null
-}
-
-/**
- * Function to checkTime is between working hours or not
- */
-fun checkTime(time: String): Boolean {
-    val fromTime: Calendar = Calendar.getInstance()
-    val toTime: Calendar = Calendar.getInstance()
-    val currentTime: Calendar = Calendar.getInstance()
-    try {
-        val times = time.split(" ").toTypedArray()
-        val week = times[0].split("-").toTypedArray()
-        val from = times[1].split(":").toTypedArray()
-        val until = times[3].split(":").toTypedArray()
-
-        fromTime.set(Calendar.HOUR_OF_DAY, Integer.valueOf(from[0]))
-        fromTime.set(Calendar.MINUTE, Integer.valueOf(from[1]))
-
-        toTime.set(Calendar.HOUR_OF_DAY, Integer.valueOf(until[0]))
-        toTime.set(Calendar.MINUTE, Integer.valueOf(until[1]))
-
-        val currentDay = currentTime.get(Calendar.DAY_OF_WEEK)
-        val fromDay = getDayOfWeek(week[0])
-        val toDay = getDayOfWeek(week[1])
-
-        if (currentTime.after(fromTime) && currentTime.before(toTime) && currentDay in fromDay..toDay) {
-            return true
-        }
-    } catch (e: Exception) {
-        return false
-    }
-    return false
-
-}
-
-/**
- * returns value for day of week
- */
-fun getDayOfWeek(day: String): Int {
-    return when (day) {
-        "S" -> 1
-        "M" -> 2
-        "TU" -> 3
-        "W" -> 4
-        "TH" -> 5
-        "F" -> 6
-        "SA" -> 7
-        else -> 0
-    }
 }
 
 /**
